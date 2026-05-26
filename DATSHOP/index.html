@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATSHOP.com.vn | Mua sắm trực tuyến</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans antialiased text-gray-950">
+
+    <header class="bg-[#131921] text-white text-sm sticky top-0 z-50">
+        <div class="max-w-[1500px] mx-auto px-4 py-2 flex items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="border border-transparent hover:border-white p-1 block">
+                    <span class="text-2xl font-black tracking-tight text-white">DatShop<span class="text-[#febd69] text-lg">.vn</span></span>
+                </a>
+                <div class="hidden md:block border border-transparent hover:border-white p-1 cursor-pointer">
+                    <p class="text-xs text-gray-400 leading-none">Giao đến</p>
+                    <p class="text-sm font-bold mt-0.5">📍 Việt Nam</p>
+                </div>
+            </div>
+
+            <div class="flex-1 flex items-center h-10 rounded-md overflow-hidden focus-within:ring-2 focus-within:ring-orange-500">
+                <select class="bg-gray-100 text-gray-700 h-full px-3 text-xs border-r border-gray-300 rounded-l-md outline-none">
+                    <option>Tất cả</option>
+                    <option>Công nghệ</option>
+                    <option>Gia dụng</option>
+                </select>
+                <input type="text" placeholder="Tìm kiếm DatShop" class="w-full h-full px-3 text-black text-sm outline-none">
+                <button class="bg-[#febd69] hover:bg-[#f3a847] h-full px-6 flex items-center justify-center transition rounded-r-md">
+                    🔍
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4 text-xs">
+                <div class="border border-transparent hover:border-white p-1 cursor-pointer">
+                    <p class="leading-none">Xin chào, Đăng nhập</p>
+                    <p class="text-sm font-bold mt-0.5">Tài khoản & Danh sách ▾</p>
+                </div>
+                <div class="border border-transparent hover:border-white p-1 cursor-pointer">
+                    <p class="leading-none">Trả hàng</p>
+                    <p class="text-sm font-bold mt-0.5">& Đơn hàng</p>
+                </div>
+                <a href="cart.html" class="flex items-end border border-transparent hover:border-white p-1 relative">
+                    <span class="text-2xl">🛒</span>
+                    <span class="absolute top-0 left-5 bg-[#131921] text-[#febd69] text-sm font-bold rounded-full px-1">1</span>
+                    <span class="text-sm font-bold ml-1 hidden sm:inline">Giỏ hàng</span>
+                </a>
+                <a href="admin-dashboard.html" class="bg-amber-500 text-black px-2 py-1 font-bold rounded hover:bg-amber-400">Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="bg-[#232f3e] text-white text-sm px-4 py-2 flex items-center space-x-4 shadow-sm">
+        <span class="font-bold cursor-pointer hover:underline flex items-center gap-1">☰ Tất cả</span>
+        <a href="products.html" class="hover:border-white border border-transparent px-2 py-0.5">Sản phẩm bán chạy</a>
+        <span class="hover:border-white border border-transparent px-2 py-0.5 cursor-pointer">Dịch vụ khách hàng</span>
+        <span class="hover:border-white border border-transparent px-2 py-0.5 cursor-pointer">Ý tưởng quà tặng</span>
+    </nav>
+
+    <div class="bg-[#131921] text-white py-14 px-8 md:px-16 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
+        <div class="max-w-2xl space-y-6 z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">Đăng ký bán hàng<br>toàn cầu cùng DatShop</h1>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                <a href="products.html" class="bg-[#f0c14b] border border-[#a88734] text-black font-semibold px-8 py-3 rounded-md text-center hover:bg-[#e7b43b] shadow transition">Đăng ký ngay</a>
+                <div class="text-sm text-gray-300">
+                    <span class="text-[#febd69] font-bold">Hoàn tiền 10%</span> cho 50.000 USD<br>doanh số bán hàng thương hiệu đầu tiên.
+                </div>
+            </div>
+            <p class="text-xs text-gray-400">39,99 USD/tháng + khoản phí khác</p>
+        </div>
+        <div class="mt-8 md:mt-0 z-10">
+            <div class="bg-white p-2 rounded shadow-2xl max-w-sm">
+                <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?auto=format&fit=crop&w=500&q=80" alt="Amazon Global" class="rounded">
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#eaeded] to-transparent pointer-events-none"></div>
+    </div>
+
+    <main class="max-w-[1500px] mx-auto px-4 -mt-12 relative z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-12">
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Thiết bị âm thanh đỉnh cao</h3>
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Xem thêm tai nghe</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Đồng hồ thông minh thế hệ mới</h3>
+            <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Khám phá các mẫu mới nhất</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Gia dụng thông minh</h3>
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Sản phẩm cho gia đình</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm h-fit">
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Trải nghiệm mua sắm tốt nhất</h3>
+                <p class="text-xs text-gray-600 mb-4">Đăng nhập để xem các đề xuất cá nhân hóa từ DatShop.</p>
+                <button class="w-full bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-sm text-center font-medium shadow-sm hover:bg-[#e7b43b]">Đăng nhập an toàn</button>
+            </div>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Máy ảnh chuyên nghiệp</h3>
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Xem ống kính & phụ kiện</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Góc Gaming của bạn</h3>
+            <img src="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Săn Deals Gaming Gear</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Balo & Phụ kiện du lịch</h3>
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Bộ sưu tập hành lý</a>
+        </div>
+
+        <div class="bg-white p-5 flex flex-col justify-between shadow-md rounded-sm">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Xu hướng thời trang thể thao</h3>
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400" class="w-full h-52 object-cover mb-4 rounded-sm">
+            <a href="products.html" class="text-xs text-blue-600 hover:text-orange-600 hover:underline">Mua sắm ngay</a>
+        </div>
+    </main>
+</body>
+</html>

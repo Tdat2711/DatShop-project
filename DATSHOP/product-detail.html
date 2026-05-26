@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chi tiết sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans text-sm">
+
+    <header class="bg-[#131921] text-white py-2 px-4 flex justify-between">
+        <a href="index.html" class="text-xl font-black">DatShop<span class="text-[#febd69] text-sm">.vn</span></a>
+        <a href="products.html" class="hover:underline text-xs">⬅ Trở lại trang tìm kiếm</a>
+    </header>
+
+    <main class="max-w-[1300px] mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div class="md:col-span-5 flex justify-center sticky top-4 h-fit">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" class="w-full max-h-[450px] object-contain border p-4 shadow-sm rounded">
+        </div>
+
+        <div class="md:col-span-4 space-y-4">
+            <h1 class="text-2xl font-semibold text-gray-900 leading-tight">Tai nghe chụp tai không dây chống ồn chủ động Premium Sound v2 - Thời lượng pin 40 tiếng, Sạc siêu nhanh chuẩn âm thanh Hi-Res</h1>
+            <a href="#" class="text-xs text-blue-600 hover:underline block border-b pb-2">Ghé thăm gian hàng DatShopBasic</a>
+            <p class="text-amber-500 text-xs">4.7 ⭐⭐⭐⭐⭐ <span class="text-blue-600 ml-2">1.402 bài đánh giá</span></p>
+            <hr>
+            <div>
+                <p class="text-xs text-gray-500">Giá bán tiêu chuẩn:</p>
+                <p class="text-3xl font-bold text-red-700">1.200.000 đ</p>
+            </div>
+            <hr>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-1">Đặc điểm nổi bật:</h4>
+                <ul class="list-disc pl-5 text-xs text-gray-700 space-y-1">
+                    <li>Chống ồn chủ động ANC tiên tiến nhất từ nhà sản xuất.</li>
+                    <li>Màng loa rộng tái tạo dải âm trầm vô cùng sống động.</li>
+                    <li>Chất liệu đệm tai bọc da êm ái, đeo thoải mái cả ngày dài.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="md:col-span-3 border border-gray-300 rounded-lg p-4 bg-white shadow-sm h-fit space-y-4">
+            <div class="text-xl font-bold text-gray-900">1.200.000 đ</div>
+            <p class="text-xs text-gray-600">Giao hàng miễn phí toàn quốc.</p>
+            <p class="text-sm text-green-700 font-bold">Còn hàng trong kho.</p>
+
+            <div>
+                <label class="text-xs text-gray-600 block mb-1">Số lượng:</label>
+                <select class="bg-gray-100 border p-1 rounded text-xs outline-none">
+                    <option>1</option><option>2</option>
+                </select>
+            </div>
+
+            <div class="space-y-2 pt-2">
+    <button onclick="checkAuthBeforeAction('Đã thêm sản phẩm vào giỏ hàng thành công!')" class="w-full bg-[#febd69] hover:bg-[#f3a847] text-black text-xs py-2 rounded-full font-medium shadow-sm border border-[#a88734]">Thêm vào giỏ hàng</button>
+    <button onclick="checkAuthBeforeAction('Chuyển hướng đến trang mua ngay!')" class="w-full bg-[#f0c14b] hover:bg-[#e7b43b] text-black text-xs py-2 rounded-full font-medium shadow-sm border border-[#a88734]">Mua ngay</button>
+</div>
+
+<script>
+function checkAuthBeforeAction(successMessage) {
+    // Kiểm tra trạng thái đăng nhập từ localStorage
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    
+    if (isLoggedIn !== 'true') {
+        alert('Yêu cầu hệ thống: Bạn cần phải đăng nhập hoặc đăng ký tài khoản trước khi thực hiện mua sắm!');
+        window.location.href = 'login.html'; // Chuyển sang trang đăng ký/đăng nhập
+    } else {
+        alert(successMessage);
+    }
+}
+</script>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tìm kiếm sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans text-sm">
+
+    <header class="bg-[#131921] text-white py-2 px-4 flex items-center justify-between">
+        <a href="index.html" class="text-xl font-black text-white">DatShop<span class="text-[#febd69]">.vn</span></a>
+        <a href="cart.html" class="text-sm">🛒 Giỏ hàng</a>
+    </header>
+
+    <div class="bg-white border-b px-6 py-2 text-xs text-gray-600 shadow-sm">
+        Hiển thị kết quả tìm kiếm cho <span class="text-orange-700 font-bold">"Tất cả sản phẩm đề xuất"</span>
+    </div>
+
+    <div class="max-w-[1500px] mx-auto px-4 py-4 flex gap-6">
+        <aside class="w-56 flex-shrink-0 hidden md:block border-r pr-4 text-xs space-y-4">
+            <div>
+                <h4 class="font-bold text-gray-900 mb-2">Đánh giá khách hàng</h4>
+                <p class="cursor-pointer hover:text-orange-600 mb-1">⭐⭐⭐⭐⭐ trở lên</p>
+                <p class="cursor-pointer hover:text-orange-600">⭐⭐⭐⭐☆ trở lên</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-2">Thương hiệu</h4>
+                <label class="flex items-center gap-2 mb-1"><input type="checkbox"> DatShopBasic</label>
+                <label class="flex items-center gap-2"><input type="checkbox"> Premium Tech</label>
+            </div>
+        </aside>
+
+        <main class="flex-1">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Tai nghe chụp tai không dây chống ồn Premium Sound v2</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐⭐ <span class="text-blue-600 text-xs ml-1">4.321 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">1.200.000 đ</p>
+                        <p class="text-xs text-gray-500 mt-1">Giao hàng miễn phí <span class="font-bold">Ngày mai</span></p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Đồng hồ thông minh SmartWatch theo dõi sức khỏe cao cấp</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐☆ <span class="text-blue-600 text-xs ml-1">853 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">2.450.000 đ</p>
+                        <p class="text-xs text-gray-500 mt-1">Tùy chọn nhận hàng nhanh 2H</p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Loa Bluetooth di động Bass trầm chống nước IPX7</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐⭐ <span class="text-blue-600 text-xs ml-1">2.119 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">890.000 đ</p>
+                        <p class="text-xs text-green-700 font-bold mt-1">Hàng DatShop Choice</p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Máy ảnh Mirrorless 24.2MP kèm Ống kính Kit tiêu chuẩn</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐⭐ <span class="text-blue-600 text-xs ml-1">312 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">14.500.000 đ</p>
+                        <p class="text-xs text-gray-500 mt-1">Hỗ trợ trả góp 0%</p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Bàn phím cơ Gaming không dây RGB độc đáo</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐☆ <span class="text-blue-600 text-xs ml-1">1.045 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">1.750.000 đ</p>
+                        <p class="text-xs text-red-600 font-semibold mt-1">Chỉ còn 3 sản phẩm cuối</p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+
+                <div class="border border-gray-200 rounded p-4 flex flex-col justify-between hover:shadow-lg transition bg-white">
+                    <div class="bg-gray-50 flex items-center justify-center p-2 rounded mb-3">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300" class="h-44 object-contain">
+                    </div>
+                    <div>
+                        <a href="product-detail.html" class="text-sm font-medium text-gray-900 hover:text-orange-600 line-clamp-2 leading-tight">Balo Du Lịch/Laptop chống nước cao cấp chống trộm</a>
+                        <p class="text-xs text-amber-500 my-1">⭐⭐⭐⭐⭐ <span class="text-blue-600 text-xs ml-1">5.612 đánh giá</span></p>
+                        <p class="text-xl font-bold text-gray-900 mt-2">650.000 đ</p>
+                        <p class="text-xs text-gray-500 mt-1">Giao hàng an toàn toàn quốc</p>
+                    </div>
+                    <a href="product-detail.html" class="mt-4 block w-full text-center bg-[#f0c14b] border border-[#a88734] py-1.5 rounded-md text-xs font-medium text-black hover:bg-[#e7b43b]">Xem chi tiết</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

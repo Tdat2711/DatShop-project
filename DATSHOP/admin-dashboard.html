@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DatShop Seller Central - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 flex min-h-screen font-sans text-sm">
+
+    <aside class="w-60 bg-gray-950 border-r border-gray-800 flex flex-col justify-between p-4">
+        <div class="space-y-6">
+            <div class="text-xl font-black text-[#febd69] tracking-wide border-b border-gray-800 pb-3">DATSHOP CENTRAL</div>
+            <nav class="space-y-2">
+                <a href="./index.html" class="block bg-blue-900/50 text-blue-400 border border-blue-800 text-center font-bold py-2 rounded mb-4 hover:bg-blue-900 transition">🌐 Xem Cửa Hàng</a>
+                
+                <a href="./admin-dashboard.html" class="block bg-gray-800 text-[#febd69] font-bold p-2.5 rounded">📊 Tổng quan hệ thống</a>
+                <a href="./admin-products.html" class="block text-gray-400 hover:bg-gray-900 hover:text-white p-2.5 rounded transition">📦 Quản lý kho sản phẩm</a>
+                <a href="./admin-orders.html" class="block text-gray-400 hover:bg-gray-900 hover:text-white p-2.5 rounded transition">🧾 Quản lý hóa đơn</a>
+            </nav>
+        </div>
+        <a href="./index.html" class="text-xs text-center bg-gray-800 py-2 rounded text-gray-400 hover:text-white transition">← Thoát Admin (Về Trang Chủ)</a>
+    </aside>
+
+    <main class="flex-1 p-8">
+        <header class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
+            <h1 class="text-2xl font-bold">Bảng điều khiển kinh doanh toàn cầu</h1>
+            <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20">Hệ thống: Ổn định</span>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <p class="text-xs text-gray-400 uppercase">Doanh thu tháng này</p>
+                <p class="text-2xl font-bold text-emerald-400 mt-1">45.000.000 đ</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <p class="text-xs text-gray-400 uppercase">Tổng số mặt hàng</p>
+                <p class="text-2xl font-bold text-amber-400 mt-1">142 loại</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <p class="text-xs text-gray-400 uppercase">Hóa đơn chờ đóng gói</p>
+                <p class="text-2xl font-bold text-blue-400 mt-1">8 đơn hàng</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

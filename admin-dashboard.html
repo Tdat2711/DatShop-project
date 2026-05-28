@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan Admin | DATSHOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans text-sm flex flex-col min-h-screen">
+
+    <header class="bg-[#131921] text-white py-3 px-6 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        <div class="flex items-center space-x-4">
+            <a href="./index.html" class="text-2xl font-black text-white">DatShop<span class="text-[#febd69] text-base">.vn</span></a>
+            <span class="bg-amber-500 text-black text-xs uppercase px-2 py-0.5 rounded font-bold tracking-wider">Hệ thống kho</span>
+        </div>
+        <a href="./index.html" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded transition text-white font-medium">Thoát Admin ➔</a>
+    </header>
+
+    <div class="flex flex-1 max-w-[1500px] w-full mx-auto p-4 gap-4 flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-white p-4 rounded-lg border shadow-sm h-fit space-y-1">
+            <a href="./admin-dashboard.html" class="block bg-amber-500 text-black font-bold px-3 py-2 rounded shadow-sm">📊 Bảng điều khiển tổng quan</a>
+            <a href="./admin-products.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📦 Quản lý hàng hóa / kho</a>
+            <a href="./admin-orders.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📜 Danh sách hóa đơn nhập xuất</a>
+        </aside>
+
+        <main class="flex-1 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-lg border shadow-sm">
+                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wider">Tổng mặt hàng trong kho</p>
+                    <p id="stat-total-products" class="text-3xl font-black text-gray-900 mt-2">6</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border shadow-sm">
+                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wider">Doanh thu chốt đơn</p>
+                    <p id="stat-revenue" class="text-3xl font-black text-green-700 mt-2">0 đ</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border shadow-sm">
+                    <p class="text-xs text-gray-500 font-medium uppercase tracking-wider">Đơn hàng chờ xử lý</p>
+                    <p id="stat-pending-orders" class="text-3xl font-black text-orange-600 mt-2">0</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border shadow-sm">
+                <h3 class="text-lg font-bold text-gray-900 border-b pb-3 mb-4 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 bg-green-600 rounded-full inline-block"></span> Nhật ký vận hành hệ thống kho thực tế
+                </h3>
+                <div id="logs-container" class="space-y-3 text-xs text-gray-600">
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function loadDashboardStats() {
+            const orders = JSON.parse(localStorage.getItem('datshop_orders')) || [];
+            
+            // Đếm số lượng đơn đang ở trạng thái Chờ duyệt kho
+            const pendingCount = orders.filter(o => o.status === "Chờ duyệt kho").length;
+            
+            // Tính tổng doanh thu từ các đơn đã Đã xuất kho thành công
+            let revenue = 0;
+            orders.forEach(o => {
+                if(o.status === "Đã xuất kho") {
+                    revenue += o.totalPrice;
+                }
+            });
+
+            // Đổ dữ liệu ra màn hình
+            document.getElementById('stat-pending-orders').innerText = pendingCount;
+            document.getElementById('stat-revenue').innerText = revenue.toLocaleString('vi-VN') + " đ";
+
+            // Tạo Nhật ký log hệ thống chạy động theo dữ liệu thực
+            const logsContainer = document.getElementById('logs-container');
+            if (orders.length === 0) {
+                logsContainer.innerHTML = `<p class="text-gray-400 italic">Chưa có hoạt động mua bán nào diễn ra trên hệ thống.</p>`;
+                return;
+            }
+
+            let logsHtml = "";
+            orders.slice().reverse().forEach(o => {
+                if (o.status === "Chờ duyệt kho") {
+                    logsHtml += `
+                        <p class="p-2 bg-gray-50 rounded border-l-4 border-orange-500">
+                            <span class="font-bold text-gray-900">[${o.time}]</span> Đơn hàng mới <span class="font-bold text-orange-600">#${o.id}</span> do khách hàng khởi tạo đang chờ bạn vào mục "Hóa đơn nhập xuất" để duyệt kho bàn giao Ahamove.
+                        </p>`;
+                } else {
+                    logsHtml += `
+                        <p class="p-2 bg-gray-50 rounded border-l-4 border-green-500">
+                            <span class="font-bold text-gray-900">[${o.time}]</span> Đơn hàng <span class="font-bold text-green-700">#${o.id}</span> đã hoàn tất chốt đơn xuất kho thành công. Tiền hàng đã được cộng trực tiếp vào doanh thu hệ thống.
+                        </p>`;
+                }
+            });
+            logsContainer.innerHTML = logsHtml;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadDashboardStats);
+    </script>
+</body>
+</html>

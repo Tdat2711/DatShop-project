@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm kho | DATSHOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans text-sm flex flex-col min-h-screen">
+
+    <header class="bg-[#131921] text-white py-3 px-6 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        <div class="flex items-center space-x-4">
+            <a href="./index.html" class="text-2xl font-black text-white">DatShop<span class="text-[#febd69] text-base">.vn</span></a>
+            <span class="bg-amber-500 text-black text-xs uppercase px-2 py-0.5 rounded font-bold tracking-wider">Hệ thống kho</span>
+        </div>
+        <a href="./index.html" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded transition text-white font-medium">Thoát Admin ➔</a>
+    </header>
+
+    <div class="flex flex-1 max-w-[1500px] w-full mx-auto p-4 gap-4 flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-white p-4 rounded-lg border shadow-sm h-fit space-y-1">
+            <a href="./admin-dashboard.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📊 Bảng điều khiển tổng quan</a>
+            <a href="./admin-products.html" class="block bg-amber-500 text-black font-bold px-3 py-2 rounded shadow-sm">📦 Quản lý hàng hóa / kho</a>
+            <a href="./admin-orders.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📜 Danh sách hóa đơn nhập xuất</a>
+        </aside>
+
+        <main class="flex-1 bg-white p-6 rounded-lg border shadow-sm">
+            <div class="flex justify-between items-center border-b pb-4 mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Danh sách sản phẩm trong kho hàng</h2>
+                <button onclick="addNewProduct()" class="bg-[#f0c14b] hover:bg-[#e7b43b] text-black text-xs px-4 py-2 rounded font-bold shadow transition border border-[#a88734]">
+                    + Thêm mặt hàng mới
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase font-bold border-b">
+                            <th class="p-3">Mã hàng</th>
+                            <th class="p-3">Hình ảnh</th>
+                            <th class="p-3">Tên mặt hàng</th>
+                            <th class="p-3">Giá niêm yết</th>
+                            <th class="p-3">Tồn kho</th>
+                            <th class="p-3 text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body" class="divide-y text-gray-600">
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Khởi tạo danh sách 6 sản phẩm gốc vào kho của Trình duyệt nếu chưa từng khởi tạo
+        const initialProducts = [
+            { id: "1", code: "#SP01", title: "Tai nghe Premium Sound v2", price: "1.200.000 đ", stock: 85, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100" },
+            { id: "2", code: "#SP02", title: "Đồng hồ SmartWatch cao cấp", price: "2.450.000 đ", stock: 32, img: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=100" },
+            { id: "3", code: "#SP03", title: "Loa Bluetooth di động Bass trầm", price: "890.000 đ", stock: 45, img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=100" },
+            { id: "4", code: "#SP04", title: "Máy ảnh Mirrorless 24.2MP", price: "14.500.000 đ", stock: 15, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100" },
+            { id: "5", code: "#SP05", title: "Bàn phím cơ Gaming không dây", price: "1.750.000 đ", stock: 20, img: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=100" },
+            { id: "6", code: "#SP06", title: "Balo Du Lịch / Balo Laptop", price: "650.000 đ", stock: 110, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100" }
+        ];
+
+        if (!localStorage.getItem('datshop_inventory')) {
+            localStorage.setItem('datshop_inventory', JSON.stringify(initialProducts));
+        }
+
+        // Vẽ danh sách hàng hóa ra bảng
+        function renderInventory() {
+            const products = JSON.parse(localStorage.getItem('datshop_inventory'));
+            const tbody = document.getElementById('products-table-body');
+            tbody.innerHTML = "";
+
+            products.forEach((p, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-bold text-gray-900">${p.code}</td>
+                        <td class="p-3"><img src="${p.img}" class="w-10 h-10 object-contain rounded border bg-white p-0.5"></td>
+                        <td class="p-3 font-medium text-gray-900">${p.title}</td>
+                        <td class="p-3 font-bold text-red-700">${p.price}</td>
+                        <td class="p-3 font-bold ${p.stock > 0 ? 'text-green-700' : 'text-red-500'}">${p.stock} chiếc</td>
+                        <td class="p-3 text-center space-x-2">
+                            <button onclick="editProductPrice(${index})" class="text-blue-600 hover:underline font-medium">Sửa giá</button>
+                            <button onclick="deleteProduct(${index})" class="text-red-600 hover:underline font-medium">Xóa</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Kích hoạt chức năng Sửa giá sản phẩm trực tiếp
+        function editProductPrice(index) {
+            let products = JSON.parse(localStorage.getItem('datshop_inventory'));
+            const newPrice = prompt("Nhập giá mới cho sản phẩm (ví dụ: 1.150.000 đ):", products[index].price);
+            if (newPrice) {
+                products[index].price = newPrice;
+                localStorage.setItem('datshop_inventory', JSON.stringify(products));
+                renderInventory();
+            }
+        }
+
+        // Kích hoạt chức năng Xóa hẳn sản phẩm khỏi bảng kho hàng
+        function deleteProduct(index) {
+            if(confirm("Bạn có chắc chắn muốn xóa mặt hàng này khỏi danh mục quản lý kho không?")) {
+                let products = JSON.parse(localStorage.getItem('datshop_inventory'));
+                products.splice(index, 1);
+                localStorage.setItem('datshop_inventory', JSON.stringify(products));
+                renderInventory();
+            }
+        }
+
+        // Thêm mặt hàng mới giả lập
+        function addNewProduct() {
+            let products = JSON.parse(localStorage.getItem('datshop_inventory'));
+            const title = prompt("Nhập tên sản phẩm mới:");
+            if(!title) return;
+            const price = prompt("Nhập giá bán (đ):", "500.000 đ");
+            const stock = parseInt(prompt("Nhập số lượng nhập kho:", "50")) || 0;
+            
+            const nextIndex = products.length + 1;
+            products.push({
+                id: String(nextIndex),
+                code: `#SP0${nextIndex}`,
+                title: title,
+                price: price,
+                stock: stock,
+                img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100"
+            });
+            localStorage.setItem('datshop_inventory', JSON.stringify(products));
+            renderInventory();
+        }
+
+        window.addEventListener('DOMContentLoaded', renderInventory);
+    </script>
+</body>
+</html>

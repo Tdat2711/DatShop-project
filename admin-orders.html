@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng | DATSHOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans text-sm flex flex-col min-h-screen">
+
+    <header class="bg-[#131921] text-white py-3 px-6 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        <div class="flex items-center space-x-4">
+            <a href="./index.html" class="text-2xl font-black text-white">DatShop<span class="text-[#febd69] text-base">.vn</span></a>
+            <span class="bg-amber-500 text-black text-xs uppercase px-2 py-0.5 rounded font-bold tracking-wider">Hệ thống kho</span>
+        </div>
+        <a href="./index.html" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded transition text-white font-medium">Thoát Admin ➔</a>
+    </header>
+
+    <div class="flex flex-1 max-w-[1500px] w-full mx-auto p-4 gap-4 flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-white p-4 rounded-lg border shadow-sm h-fit space-y-1">
+            <a href="./admin-dashboard.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📊 Bảng điều khiển tổng quan</a>
+            <a href="./admin-products.html" class="block text-gray-700 hover:bg-gray-100 px-3 py-2 rounded font-medium transition">📦 Quản lý hàng hóa / kho</a>
+            <a href="./admin-orders.html" class="block bg-amber-500 text-black font-bold px-3 py-2 rounded shadow-sm">📜 Danh sách hóa đơn nhập xuất</a>
+        </aside>
+
+        <main class="flex-1 bg-white p-6 rounded-lg border shadow-sm">
+            <h2 class="text-xl font-bold text-gray-900 border-b pb-4 mb-4">Danh sách hóa đơn xuất kho vận chuyển</h2>
+            
+            <div id="orders-list-container" class="space-y-4">
+                </div>
+        </main>
+    </div>
+
+    <script>
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('datshop_orders')) || [];
+            const container = document.getElementById('orders-list-container');
+            
+            if(orders.length === 0) {
+                container.innerHTML = `<p class="text-gray-400 text-center py-6 italic">Hiện tại chưa có hóa đơn mua bán nào được khởi tạo trên hệ thống.</p>`;
+                return;
+            }
+
+            let html = "";
+            orders.slice().reverse().forEach((order, index) => {
+                // Đảo ngược vị trí index thực tế do dùng slice().reverse()
+                const realIndex = orders.length - 1 - index;
+                
+                // Thu thập danh sách sản phẩm hiển thị thành chuỗi văn bản
+                let itemsText = order.items.map(item => `${item.title} (SL: ${item.quantity})`).join(', ');
+
+                html += `
+                    <div class="border p-4 rounded-lg bg-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs shadow-sm">
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-gray-900">Mã đơn: <span class="text-orange-700">#${order.id}</span></p>
+                            <p class="text-gray-500">Khách hàng: ${order.customer} | ĐT: ${order.phone} | Thời gian: ${order.time}</p>
+                            <p class="text-gray-700 font-medium">Nội dung sản phẩm: <span class="text-blue-700">${itemsText}</span></p>
+                        </div>
+                        <div class="text-left sm:text-right space-y-2 w-full sm:w-auto flex-shrink-0">
+                            <p class="text-sm font-bold text-gray-900">Tổng thu: ${order.totalPrice.toLocaleString('vi-VN')} đ</p>
+                            <div class="flex items-center gap-2 sm:justify-end">
+                                ${order.status === "Chờ duyệt kho" 
+                                    ? `<span class="px-2 py-0.5 bg-orange-100 text-orange-700 font-bold rounded">Chờ duyệt kho</span>
+                                       <button onclick="approveOrder(${realIndex})" class="bg-green-700 text-white font-bold px-2 py-1 rounded hover:bg-green-600 shadow-sm transition">Xác nhận xuất đơn</button>`
+                                    : `<span class="px-2 py-0.5 bg-green-100 text-green-700 font-bold rounded">✓ Đã xuất kho (Đã chốt)</span>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Hàm chốt đơn: tự động trừ số lượng tồn kho và chuyển trạng thái đơn hàng
+        function approveOrder(realIndex) {
+            let orders = JSON.parse(localStorage.getItem('datshop_orders'));
+            let inventory = JSON.parse(localStorage.getItem('datshop_inventory'));
+            const selectedOrder = orders[realIndex];
+
+            // Vòng lặp duyệt qua các sản phẩm trong đơn vừa chốt để trừ kho tương ứng
+            selectedOrder.items.forEach(orderItem => {
+                const warehouseItem = inventory.find(inv => inv.id === orderItem.id);
+                if (warehouseItem) {
+                    warehouseItem.stock = Math.max(0, warehouseItem.stock - orderItem.quantity);
+                }
+            });
+
+            // Đổi trạng thái đơn sang Đã xuất kho
+            selectedOrder.status = "Đã xuất kho";
+
+            // Lưu lại toàn bộ vào LocalStorage
+            localStorage.setItem('datshop_inventory', JSON.stringify(inventory));
+            localStorage.setItem('datshop_orders', JSON.stringify(orders));
+
+            alert(`Chốt đơn #${selectedOrder.id} thành công! Lệnh điều hướng giao nhận đã được gửi đến Ahamove, số lượng hàng tồn kho đã được cập nhật giảm.`);
+            renderOrders();
+        }
+
+        window.addEventListener('DOMContentLoaded', renderOrders);
+    </script>
+</body>
+</html>

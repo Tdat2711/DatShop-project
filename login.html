@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký & Đăng nhập | DATSHOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans text-sm min-h-screen flex flex-col justify-between">
+
+    <header class="bg-[#131921] text-white py-3 px-6 text-center shadow-md">
+        <a href="./index.html" class="text-2xl font-black text-white">DatShop<span class="text-[#febd69] text-base">.vn</span></a>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center py-10 px-4">
+        <div class="bg-white p-6 rounded-lg border shadow-sm w-full max-w-md space-y-6">
+            
+            <div class="flex border-b text-center font-bold text-base">
+                <button id="tab-login-btn" onclick="switchTab('login')" class="w-1/2 pb-2 border-b-2 border-amber-500 text-amber-600">Đăng nhập</button>
+                <button id="tab-register-btn" onclick="switchTab('register')" class="w-1/2 pb-2 text-gray-400 hover:text-gray-600">Đăng ký</button>
+            </div>
+
+            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+                <h2 class="text-xl font-bold text-gray-900">Đăng nhập tài khoản</h2>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Tài khoản hoặc Email</label>
+                    <input type="text" id="login-user" required class="w-full border border-gray-400 p-2 rounded outline-none focus:border-amber-500 shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Mật khẩu</label>
+                    <input type="password" id="login-pass" required class="w-full border border-gray-400 p-2 rounded outline-none focus:border-amber-500 shadow-sm">
+                </div>
+                <button type="submit" class="w-full bg-[#f0c14b] hover:bg-[#e7b43b] text-black text-xs py-2 rounded font-bold shadow border border-[#a88734] transition">
+                    Đăng nhập ngay
+                </button>
+            </form>
+
+            <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <h2 class="text-xl font-bold text-gray-900">Tạo tài khoản mới</h2>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ và tên của bạn</label>
+                    <input type="text" id="reg-name" placeholder="Ví dụ: Nguyễn Văn A" required class="w-full border border-gray-400 p-2 rounded outline-none focus:border-amber-500 shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Tên tài khoản (Username)</label>
+                    <input type="text" id="reg-user" required class="w-full border border-gray-400 p-2 rounded outline-none focus:border-amber-500 shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Mật khẩu</label>
+                    <input type="password" id="reg-pass" required class="w-full border border-gray-400 p-2 rounded outline-none focus:border-amber-500 shadow-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-2">Chọn ảnh đại diện (Avatar) của bạn</label>
+                    <div class="grid grid-cols-4 gap-3">
+                        <label class="cursor-pointer text-center group">
+                            <input type="radio" name="avatar-choice" value="https://api.dicebear.com/7.x/bottts/svg?seed=Dat1" checked class="hidden peer">
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Dat1" class="w-12 h-12 rounded-full mx-auto border-2 peer-checked:border-amber-500 peer-checked:scale-110 group-hover:opacity-80 border-gray-200 p-1 bg-gray-50 transition">
+                            <span class="text-[10px] text-gray-500 mt-1 block">Robot A</span>
+                        </label>
+                        <label class="cursor-pointer text-center group">
+                            <input type="radio" name="avatar-choice" value="https://api.dicebear.com/7.x/bottts/svg?seed=Dat2" class="hidden peer">
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Dat2" class="w-12 h-12 rounded-full mx-auto border-2 peer-checked:border-amber-500 peer-checked:scale-110 group-hover:opacity-80 border-gray-200 p-1 bg-gray-50 transition">
+                            <span class="text-[10px] text-gray-500 mt-1 block">Robot B</span>
+                        </label>
+                        <label class="cursor-pointer text-center group">
+                            <input type="radio" name="avatar-choice" value="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="hidden peer">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-12 h-12 rounded-full mx-auto border-2 peer-checked:border-amber-500 peer-checked:scale-110 group-hover:opacity-80 border-gray-200 p-1 bg-gray-50 transition">
+                            <span class="text-[10px] text-gray-500 mt-1 block">Nam tính</span>
+                        </label>
+                        <label class="cursor-pointer text-center group">
+                            <input type="radio" name="avatar-choice" value="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" class="hidden peer">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" class="w-12 h-12 rounded-full mx-auto border-2 peer-checked:border-amber-500 peer-checked:scale-110 group-hover:opacity-80 border-gray-200 p-1 bg-gray-50 transition">
+                            <span class="text-[10px] text-gray-500 mt-1 block">Nữ tính</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[#f0c14b] hover:bg-[#e7b43b] text-black text-xs py-2 rounded font-bold shadow border border-[#a88734] transition">
+                    Hoàn tất đăng ký tài khoản
+                </button>
+            </form>
+
+            <p class="text-xs text-gray-500 text-center">Bằng việc tiếp tục, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của hệ thống vận hành DatShop.</p>
+        </div>
+    </main>
+
+    <footer class="bg-[#131921] text-gray-400 text-xs py-4 text-center border-t border-gray-700">
+        © Hệ thống quản lý bán hàng DatShop.vn
+    </footer>
+
+    <script>
+        // Hàm chuyển đổi giao diện tab Qua lại
+        function switchTab(tab) {
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+            const loginBtn = document.getElementById('tab-login-btn');
+            const registerBtn = document.getElementById('tab-register-btn');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                loginBtn.className = "w-1/2 pb-2 border-b-2 border-amber-500 text-amber-600";
+                registerBtn.className = "w-1/2 pb-2 text-gray-400 hover:text-gray-600";
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerBtn.className = "w-1/2 pb-2 border-b-2 border-amber-500 text-amber-600";
+                loginBtn.className = "w-1/2 pb-2 text-gray-400 hover:text-gray-600";
+            }
+        }
+
+        // Xử lý logic khi bấm Đăng ký tài khoản mới
+        function handleRegister(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('reg-name').value;
+            const username = document.getElementById('reg-user').value;
+            const password = document.getElementById('reg-pass').value;
+            
+            // Lấy link avatar được chọn từ các nút radio
+            const avatarSelected = document.querySelector('input[name="avatar-choice"]:checked').value;
+
+            // Đóng gói lưu vào hệ thống dữ liệu thành viên
+            const userData = { fullName, username, password, avatar: avatarSelected };
+            localStorage.setItem('registered_user_' + username, JSON.stringify(userData));
+            
+            alert('Đăng ký tài khoản thành công! Hệ thống tự động chuyển sang màn hình đăng nhập.');
+            switchTab('login');
+            document.getElementById('login-user').value = username;
+        }
+
+        // Xử lý logic khi Đăng nhập tài khoản
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+
+            // Kiểm tra tài khoản admin hệ thống hoặc tài khoản khách đăng ký
+            const savedUser = JSON.parse(localStorage.getItem('registered_user_' + user));
+
+            if ((user === 'admin' && pass === 'admin') || (savedUser && savedUser.password === pass)) {
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Ghi nhận định danh người dùng hiện tại lên toàn bộ hệ thống shop
+                if (user === 'admin') {
+                    localStorage.setItem('currentUser', JSON.stringify({ fullName: "Quản trị viên", avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Admin" }));
+                } else {
+                    localStorage.setItem('currentUser', JSON.stringify({ fullName: savedUser.fullName, avatar: savedUser.avatar }));
+                }
+
+                alert('Đăng nhập thành công vào DatShop.vn!');
+                window.location.href = './index.html';
+            } else {
+                alert('Tài khoản hoặc Mật khẩu nhập vào hệ thống chưa chính xác, vui lòng thử lại!');
+            }
+        }
+    </script>
+</body>
+</html>

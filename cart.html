@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng DatShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#eaeded] font-sans text-sm">
+
+    <header class="bg-[#131921] text-white py-3 px-6 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        <a href="./index.html" class="text-2xl font-black text-white">DatShop<span class="text-[#febd69] text-base">.vn</span></a>
+        <a href="./products.html" class="text-xs bg-[#232f3e] hover:bg-[#37475a] px-3 py-1.5 rounded transition text-white font-medium">⬅ Trở lại mua sắm</a>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-4 py-6 flex flex-col md:flex-row gap-4">
+        <div class="w-full md:w-3/4 bg-white p-6 shadow-sm rounded-md border">
+            <h1 class="text-2xl font-normal border-b pb-2 mb-4 text-gray-900">Giỏ hàng mua sắm</h1>
+            
+            <div id="cart-items-container" class="space-y-4">
+                </div>
+
+            <div class="pt-4 flex justify-between items-center border-t mt-4">
+                <a href="./products.html" class="text-xs text-blue-600 hover:underline flex items-center gap-1">
+                    ⬅ Tiếp tục tìm kiếm sản phẩm khác
+                </a>
+                <p class="text-sm font-medium text-gray-700">Tạm tính (<span id="total-items-count" class="font-bold">0</span> sản phẩm): <span id="bottom-total-price" class="font-bold text-lg text-red-700">0 đ</span></p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/4 bg-white p-5 shadow-sm h-fit space-y-4 rounded-md border">
+            <div class="text-base font-medium">
+                Tạm tính: <span id="sidebar-total-price" class="font-black text-xl text-red-700 block mt-1">0 đ</span>
+            </div>
+            <label class="flex items-start gap-2 text-xs text-gray-700 cursor-pointer select-none">
+                <input type="checkbox" class="mt-0.5 accent-orange-500"> Đơn hàng này có chứa quà tặng
+            </label>
+            <button onclick="checkAuthBeforeCheckout()" class="w-full bg-[#f0c14b] hover:bg-[#e7b43b] text-black text-xs py-2.5 rounded-full font-bold border border-[#a88734] shadow-sm transition">
+                Tiến hành thanh toán
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Hàm hiển thị danh sách sản phẩm từ localStorage ra màn hình
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const cart = JSON.parse(localStorage.getItem('datshop_cart')) || [];
+            
+            // Trường hợp giỏ hàng rỗng
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 space-y-3">
+                        <p class="text-gray-500 text-base">Giỏ hàng của bạn đang trống rỗng.</p>
+                        <a href="./products.html" class="inline-block bg-[#f0c14b] text-black text-xs px-4 py-2 font-bold rounded shadow border border-[#a88734]">Mua sắm ngay</a>
+                    </div>
+                `;
+                document.getElementById('total-items-count').innerText = "0";
+                document.getElementById('bottom-total-price').innerText = "0 đ";
+                document.getElementById('sidebar-total-price').innerText = "0 đ";
+                return;
+            }
+
+            let htmlContent = "";
+            let totalPrice = 0;
+            let totalItems = 0;
+
+            // Duyệt qua từng sản phẩm có trong giỏ hàng để cộng tiền và tạo chuỗi HTML
+            cart.forEach(function(item, index) {
+                // Chuyển chuỗi giá tiền "1.200.000 đ" thành số nguyên 1200000 để tính toán
+                const numericPrice = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+                const itemTotalPrice = numericPrice * item.quantity;
+                
+                totalPrice += itemTotalPrice;
+                totalItems += item.quantity;
+
+                htmlContent += `
+                    <div class="flex gap-4 border-b pb-4 items-start">
+                        <img src="${item.img}" class="w-28 h-28 object-contain border p-1 rounded bg-gray-50">
+                        <div class="flex-1 space-y-1">
+                            <h3 class="text-base font-medium text-gray-900 leading-tight">${item.title}</h3>
+                            <p class="text-xs text-green-700 font-medium">Còn hàng trong kho</p>
+                            <div class="flex items-center gap-4 text-xs pt-2">
+                                <span class="bg-gray-100 border px-2 py-1 rounded text-xs text-gray-700">
+                                    Số lượng: <b>${item.quantity}</b>
+                                </span>
+                                <button onclick="removeItem(${index})" class="text-blue-600 hover:underline hover:text-red-600 transition font-medium">Xóa mặt hàng này</button>
+                            </div>
+                        </div>
+                        <p class="text-lg font-bold text-gray-900 flex-shrink-0">${item.price}</p>
+                    </div>
+                `;
+            });
+
+            // Đổ nội dung HTML và cập nhật tổng tiền ra giao diện
+            container.innerHTML = htmlContent;
+            document.getElementById('total-items-count').innerText = totalItems;
+            
+            // Định dạng lại tiền sang chuẩn VNĐ (Ví dụ: 1200000 -> 1.200.000 đ)
+            const formattedPrice = totalPrice.toLocaleString('vi-VN') + " đ";
+            document.getElementById('bottom-total-price').innerText = formattedPrice;
+            document.getElementById('sidebar-total-price').innerText = formattedPrice;
+        }
+
+        // Hàm xóa sản phẩm khỏi giỏ hàng theo vị trí Index
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('datshop_cart')) || [];
+            cart.splice(index, 1); // Xóa 1 phần tử tại vị trí click
+            localStorage.setItem('datshop_cart', JSON.stringify(cart)); // Ghi đè lại vào bộ nhớ trình duyệt
+            renderCart(); // Gọi lại hàm vẽ giao diện để cập nhật thay đổi ngay lập tức
+        }
+
+        // Hàm kiểm tra thanh toán đơn hàng
+        function checkAuthBeforeCheckout() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') {
+        alert('Vui lòng tạo tài khoản hoặc đăng nhập để bảo mật thông tin đơn hàng của bạn!');
+        window.location.href = './login.html';
+        return;
+    }
+    
+    const cart = JSON.parse(localStorage.getItem('datshop_cart')) || [];
+    if(cart.length === 0) {
+        alert('Giỏ hàng của bạn đang trống, không thể tiến hành thanh toán!');
+        return;
+    }
+
+    // --- LOGIC TẠO ĐƠN HÀNG MỚI CHO ADMIN ---
+    let orders = JSON.parse(localStorage.getItem('datshop_orders')) || [];
+    
+    // Tạo mã đơn ngẫu nhiên dạng #DS-XXXX
+    const orderId = 'DS-' + Math.floor(1000 + Math.random() * 9000);
+    
+    // Tính tổng tiền đơn hàng này
+    let total = 0;
+    cart.forEach(item => {
+        const priceNum = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+        total += priceNum * item.quantity;
+    });
+
+    // Lưu thông tin đơn vào mảng đơn hàng hệ thống
+    orders.push({
+        id: orderId,
+        customer: "Nguyễn Khắc Tuấn Đạt",
+        phone: "0987654321",
+        items: cart, // Lưu toàn bộ danh sách sản phẩm trong giỏ
+        totalPrice: total,
+        status: "Chờ duyệt kho", // Trạng thái ban đầu
+        time: new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})
+    });
+
+    localStorage.setItem('datshop_orders', JSON.stringify(orders));
+    // ----------------------------------------
+
+    alert('Đơn hàng của bạn đã được khởi tạo thành công! Vui lòng chờ nhân viên xác nhận.');
+    localStorage.removeItem('datshop_cart'); // Xóa sạch giỏ hàng sau khi đặt thành công
+    renderCart();
+}
+
+        // Tự động chạy hàm vẽ giỏ hàng ngay khi trang web vừa tải xong
+        window.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+</html>
